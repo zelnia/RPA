@@ -40,14 +40,43 @@
         <title>Ristostore</title>
     </head>
     <body>
-        <nav class="navbar navbar-light bg-light">
-            <div class="container">
-                <i class="bi bi-house"></i>
-            </div>
-        </nav>
-        <div class="container">
+        <div id="deviceready">
+            <nav class="navbar navbar-light bg-light">
+                <div class="container">
+                    <i class="bi bi-house"></i>
+                </div>
+            </nav>
+            <div class="container settore" id="settorelogin">
             <h1>Ristostore</h1>
-            <div id="deviceready">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                  Login
+                                </div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Esegui l'accesso</h5>
+                                  <p class="card-text">Inserisci nome utente e password</p>
+                                  <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <input type="text" class="form-control" placeholder="Nome Utente">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input type="password" class="form-control">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <button class="btn btn-primary w-100" type="button" id="Accedi">Accedi</button>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container settore d-none" id="settoreordini">
+            <h1>Ristostore</h1>
                 <div class="container">
                     <div class="row">
                         <div class="col">

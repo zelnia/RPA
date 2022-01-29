@@ -21,34 +21,44 @@
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener('deviceready', onDeviceReady, false);
 
+function vai(settore){
+    $(".settore").addClass("d-none");
+    $("#"+settore).removeClass("d-none")
+}
+
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
     // console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     // document.getElementById('deviceready').classList.add('ready');
     
-    $('#tabella_ordini').DataTable({
-        ajax:"https://ristostore.it/RPA/ordini_driver",
-        "columns": [
-            { "data": "Id" },
-            { "data": "Data" },
-            { "data": "Attivita" }
-        ],  
-        "columnDefs": [ {
-            "targets": -1,
-            "data": null,
-            "render": function ( data, type, row, meta ) {
-                return '<a href="'+data+'">Vai</a>';
-            }
-        } ],  		
-        // "columnDefs": [ {
-        //     "targets": -1,
-        //     "data": null,
-        //     "defaultContent": "<button>Click!</button>"
-        // } ],  		
-        "language": {
-            "url": "/js/lib/Italian.json"
-        },
-        "bLengthChange": false,
-        "pageLength": 25
+
+    $("#Accedi").on("click", function () {
+        vai("settoreordini");
+        $('#tabella_ordini').DataTable({
+            ajax:"https://ristostore.it/RPA/ordini_driver",
+            "columns": [
+                { "data": "Id" },
+                { "data": "Data" },
+                { "data": "Attivita" }
+            ],  
+            "columnDefs": [ {
+                "targets": -1,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return '<a href="'+data+'">Vai</a>';
+                }
+            } ],  		
+            // "columnDefs": [ {
+            //     "targets": -1,
+            //     "data": null,
+            //     "defaultContent": "<button>Click!</button>"
+            // } ],  		
+            "language": {
+                "url": "/js/lib/Italian.json"
+            },
+            "bLengthChange": false,
+            "pageLength": 25
+        });
     });
+
 }
