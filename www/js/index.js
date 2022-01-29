@@ -46,7 +46,7 @@ function onDeviceReady() {
                         console.log(risposta.dati);
                         vai("settoreordini");
                         $('#tabella_ordini').DataTable({
-                            ajax:"https://ristostore.it/RPA/ordini_driver",
+                            ajax:"https://ristostore.it/RPA/ordini_driver?Id="+risposta.dati.Id,
                             "columns": [
                                 { "data": "Id" },
                                 { "data": "Data" },
