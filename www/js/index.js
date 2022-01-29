@@ -33,8 +33,8 @@ function onDeviceReady() {
     
 
     $("#Accedi").on("click", function () {
-        var User=$("User").val();
-        var Pass=$("Pass").val();
+        var User=$("#User").val();
+        var Pass=$("#Pass").val();
         $.ajax({
             type: "post",
             url: "https://ristostore.it/RPA/Accesso",
