@@ -33,32 +33,48 @@ function onDeviceReady() {
     
 
     $("#Accedi").on("click", function () {
-        vai("settoreordini");
-        $('#tabella_ordini').DataTable({
-            ajax:"https://ristostore.it/RPA/ordini_driver",
-            "columns": [
-                { "data": "Id" },
-                { "data": "Data" },
-                { "data": "Attivita" }
-            ],  
-            "columnDefs": [ {
-                "targets": -1,
-                "data": null,
-                "render": function ( data, type, row, meta ) {
-                    return '<a href="'+data+'">Vai</a>';
+        var User=$("User").val();
+        var Pass=$("Pass").val();
+        $.ajax({
+            type: "post",
+            url: "https://ristostore.it/RPA/Accesso",
+            data: {"Tipo":"Driver","User" : User,"Pass" : Pass},
+            success: function (response) {
+                if(response!="Nessun_Tipo_Specificato"){
+                    var risposta=JSON.parse(response);
+                    if(risposta.ok){
+                        console.log(risposta.dati);
+                        vai("settoreordini");
+                        $('#tabella_ordini').DataTable({
+                            ajax:"https://ristostore.it/RPA/ordini_driver",
+                            "columns": [
+                                { "data": "Id" },
+                                { "data": "Data" },
+                                { "data": "Attivita" }
+                            ],  
+                            "columnDefs": [ {
+                                "targets": -1,
+                                "data": null,
+                                "render": function ( data, type, row, meta ) {
+                                    return '<a href="'+data+'">Vai</a>';
+                                }
+                            } ],  		
+                            // "columnDefs": [ {
+                            //     "targets": -1,
+                            //     "data": null,
+                            //     "defaultContent": "<button>Click!</button>"
+                            // } ],  		
+                            "language": {
+                                "url": "/js/lib/Italian.json"
+                            },
+                            "bLengthChange": false,
+                            "pageLength": 25
+                        });
+                    }
                 }
-            } ],  		
-            // "columnDefs": [ {
-            //     "targets": -1,
-            //     "data": null,
-            //     "defaultContent": "<button>Click!</button>"
-            // } ],  		
-            "language": {
-                "url": "/js/lib/Italian.json"
-            },
-            "bLengthChange": false,
-            "pageLength": 25
+            }
         });
+
     });
 
 }
