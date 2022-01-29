@@ -28,24 +28,24 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://ristostore.it/ data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;connect-src 'self' https://ristostore.it/ 'unsafe-inline' 'unsafe-eval';">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/lib/bootstrap.min.css">
-        <link rel="stylesheet" href="css/lib/bootstrap.min.css">
+        <link rel="stylesheet" href="css/lib/bootstrapicons/bootstrap-icons.css">
         <link rel="stylesheet" href="css/lib/jquery.dataTables.min.css">
         <link rel="stylesheet" href="css/index.css">
         <title>Ristostore</title>
     </head>
     <body>
-        <div class="app">
-            <nav class="navbar navbar-light bg-light">
-                <div class="container">
-                    <i class="bi bi-house"></i>
-                </div>
-              </nav>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container">
+                <i class="bi bi-house"></i>
+            </div>
+        </nav>
+        <div class="container">
             <h1>Ristostore</h1>
             <div id="deviceready">
                 <div class="container">
@@ -56,16 +56,9 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Data</th>
-                                        <th>Azioni</th>
+                                        <th>Attivita</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Data</th>
-                                        <th>Azioni</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -74,7 +67,7 @@
         </div>
         <script src="js/lib/jquery-3.6.0.min.js"></script>
         <script src="js/lib/bootstrap.bundle.min.js"></script>
-        <script src="js/lib/bootstrap-icons-1.7.2/bootstrap-icons.css"></script>
+        <script src="js/lib/jquery.dataTables.min.js"></script>
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
     </body>
