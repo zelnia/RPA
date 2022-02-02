@@ -30,20 +30,31 @@ function onDeviceReady() {
     // Cordova is now initialized. Have fun!
     // console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     // document.getElementById('deviceready').classList.add('ready');
-    
+    const StoredUser = localStorage.getItem('User');
+    const StoredPass = localStorage.getItem('Pass');
+    const StoredTipoUtenza = localStorage.getItem('TipoUtenza');
+    if(localStorage.getItem('TipoUtenza')) {
+        accesso(StoredUser,StoredPass,StoredTipoUtenza);
+    }
 
     $("#Accedi").on("click", function () {
         var User=$("#User").val();
         var Pass=$("#Pass").val();
+        accesso(User,Pass,"Driver");
+    });
+
+    function accesso(pUser,pPass,pTipo) {
         $.ajax({
             type: "post",
             url: "https://ristostore.it/RPA/Accesso",
-            data: {"Tipo":"Driver","User" : User,"Pass" : Pass},
+            data: {"Tipo":pTipo,"User" : pUser,"Pass" : pPass},
             success: function (response) {
                 if(response!="Nessun_Tipo_Specificato"){
                     var risposta=JSON.parse(response);
                     if(risposta.ok){
-                        console.log(risposta.dati);
+                        localStorage.setItem('TipoUtenza', pTipo);
+                        localStorage.setItem('User', pUser);
+                        localStorage.setItem('Pass', pPass);
                         vai("settoreordini");
                         $('#tabella_ordini').DataTable({
                             ajax:"https://ristostore.it/RPA/ordini_driver?Id="+risposta.dati.Id,
@@ -58,12 +69,7 @@ function onDeviceReady() {
                                 "render": function ( data, type, row, meta ) {
                                     return '<a href="'+data+'">Vai</a>';
                                 }
-                            } ],  		
-                            // "columnDefs": [ {
-                            //     "targets": -1,
-                            //     "data": null,
-                            //     "defaultContent": "<button>Click!</button>"
-                            // } ],  		
+                            } ],  				
                             "language": {
                                 "url": "/js/lib/Italian.json"
                             },
@@ -74,7 +80,5 @@ function onDeviceReady() {
                 }
             }
         });
-
-    });
-
+    }
 }
