@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Android on emulator",
+            "type": "cordova",
+            "request": "launch",
+            "platform": "android",
+            "target": "Pixel_2_API_32",
+            "port": 9222,
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
