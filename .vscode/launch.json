@@ -2,6 +2,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to running Android on device",
+            "type": "cordova",
+            "request": "attach",
+            "platform": "android",
+            "target": "device",
+            "port": 9222,
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}"
+        },
+
+        {
             "name": "Run Android on emulator",
             "type": "cordova",
             "request": "launch",
