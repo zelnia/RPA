@@ -9,7 +9,8 @@
             "target": "device",
             "port": 9222,
             "sourceMaps": true,
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "ionicLiveReload": false
         },
 
         {

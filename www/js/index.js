@@ -45,7 +45,7 @@ function onDeviceReady() {
 
     function accesso(pUser,pPass,pTipo) {
         $.ajax({
-            type: "post",
+            type: "POST",
             url: "https://ristostore.it/RPA/Accesso",
             data: {"Tipo":pTipo,"User" : pUser,"Pass" : pPass},
             success: function (response) {
@@ -78,6 +78,9 @@ function onDeviceReady() {
                         });
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(textStatus + jqXHR.responseText);
             }
         });
     }

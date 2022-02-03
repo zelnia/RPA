@@ -1,12 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.cordova.rpa" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <!-- <allow-navigation href="*"/>
+    <allow-intent href="*" /> -->
     <name>rpa</name>
     <description>Ristostore Partners App</description>
     <author email="380gradi@gmail.com" href="https://ristostore.it/">
         380gradi
     </author>
     <content src="index.html" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
+    <allow-intent href="https://*/*" /> -->
     <allow-navigation href="https://ristostore.it/*" />
 </widget>
