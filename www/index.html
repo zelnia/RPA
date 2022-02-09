@@ -37,18 +37,15 @@
         <link rel="stylesheet" href="css/lib/bootstrap.min.css">
         <link rel="stylesheet" href="css/lib/bootstrapicons/bootstrap-icons.css">
         <link rel="stylesheet" href="css/lib/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/index.min.css">
+        <!-- <link rel="stylesheet" href="css/index.css"> -->
         <title>Ristostore</title>
     </head>
     <body>
         <div id="deviceready">
-            <nav class="navbar navbar-light bg-light">
-                <div class="container">
-                    <i class="bi bi-house"></i>
-                </div>
-            </nav>
+            <!-- LOGIN -->
             <div class="container settore" id="settorelogin">
-            <h1>Ristostore</h1>
+                <h1>Ristostore</h1>
                 <div class="container">
                     <div class="row">
                         <div class="col">
@@ -76,8 +73,38 @@
                     </div>
                 </div>
             </div>
-            <div class="container settore d-none" id="settoreordini">
-            <h1>Ristostore</h1>
+            <!-- HOME -->
+            <div class="container settore d-none" id="settorehome">
+                <h3>Ritiri</h3>
+                <div class="container" id="rit_lav">
+
+                </div>
+                <h3>Ordini</h3>
+                <div class="container mb-5"  id="ord_lav">
+
+                </div>
+                <div style="min-height: 50px;"></div>
+            </div>
+            <!-- STORICO -->
+            <div class="container settore d-none" id="settorestorico">
+                <h3>Ritiri</h3>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <table id="tabella_ritiri" class="display w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Data</th>
+                                        <th>Attivita</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <h3>Ordini</h3>
                 <div class="container">
                     <div class="row">
                         <div class="col">
@@ -94,6 +121,44 @@
                     </div>
                 </div>
             </div>
+            <!-- DETTAGLI RITIRO -->
+            <div class="container settore d-none" id="settoreritiro">
+                <div class="card text-dark bg-light mb-3 w-100">
+                    <div class="card-header">
+                        Ritiro <span id="progressivo_ritiro"></span> presso <strong id="ritrsa"></strong>
+                    </div>
+
+                    <div class="card-body">  
+                        <h5 class="card-title" ></h5>
+                        <a href="" class="card-text d-none" id="ritattitel">
+                            Chiama
+                        </a>                      
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            Consegna: <span id="ritdtconsegna"></span>
+                        </li>
+                        <li class="list-group-item">
+                            Totale: <span id="rittotale"></span>
+                        </li>
+                        <li class="list-group-item">
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- NAVBAR  -->
+            <nav class="navbar fixed-bottom navbar-light bg-light px-2">
+                <button type="button" class="btn btn-leggero">
+                    <i class="bi bi-house"></i>
+                </button>
+                <button type="button" class="btn btn-leggero" id="vaistorico">
+                    Tutto
+                </button>
+                <button type="button" class="btn btn-leggero" id="indietrobutton">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+            </nav>
         </div>
         <script src="js/lib/jquery-3.6.0.min.js"></script>
         <script src="js/lib/bootstrap.bundle.min.js"></script>

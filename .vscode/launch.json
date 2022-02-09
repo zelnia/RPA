@@ -22,6 +22,28 @@
             "port": 9222,
             "sourceMaps": true,
             "cwd": "${workspaceFolder}"
+        },
+
+        {
+            "name": "Run Android on browser",
+            "type": "cordova",
+            "request": "attach",
+            "platform": "browser",
+            "target": "Pixel_2_API_32",
+            "port": 9222,
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}"
+        },
+
+        {
+            "name": "Launch Android on browser",
+            "type": "cordova",
+            "request": "launch",
+            "platform": "browser",
+            "target": "Pixel_2_API_32",
+            "port": 9222,
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
