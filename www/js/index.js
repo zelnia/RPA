@@ -77,6 +77,7 @@ function onDeviceReady() {
                                     let ora = DT_engform.getHours();
                                     let minuti = DT_engform.getMinutes();
                                     var linkattitel="";
+                                    var idritiro=ritiro.Id;
                                     if(esi(ritiro.Attitel)!=""){
                                         linkattitel=`<a class='btn btn-sm btn-primary ml-3' href='tel:${ritiro.Telefono}'>Chiama</a>`;
                                     }
@@ -85,6 +86,27 @@ function onDeviceReady() {
                                         linktelefono=`<li class='list-group-item'>
                                             <a class='btn btn-sm btn-primary w-100' href='tel:${ritiro.Telefono}'>Chiama il cliente</a>
                                         </li>`;
+                                    }
+                                    var datatipo="ritiro";
+                                    var settoreordine="";
+                                    if(esi(ritiro.Ordine_Associato)!="0"){
+                                        var datatipo="ordine";
+                                        var idritiro=ritiro.Ordine_Associato;
+                                        settoreordine=`<li class='list-group-item'>
+                                            Cliente: ${ritiro.Nominativo}
+                                        </li>
+                                        <li class='list-group-item'>
+                                            Indirizzo: ${ritiro.Indirizzo}
+                                        </li>`;
+                                        // var prodottiordine=JSON.parse(ritiro.Prodotti);
+                                        // var prodotti="";
+                                        // if(Array.isArray(prodottiordine) && prodottiordine.length){
+                                        //     prodottiordine.forEach(element => {
+                                        //         prodotti+=`<li class='list-group-item'>
+                                        //             Indirizzo: ${prodottiordine.Id}
+                                        //         </li>`;
+                                        //     });
+                                        // }
                                     }
                                     let card=`
                                         <div class='card text-dark bg-light mb-3 w-100'>
@@ -95,14 +117,15 @@ function onDeviceReady() {
                                                 <li class='list-group-item'>
                                                     Consegna: <strong>${ora}:${minuti}</strong> del <span id='rit_dt_consegna'>${DT_date}</span>
                                                 </li>
+                                                ${settoreordine}
                                                 ${linktelefono}
                                                 <li class='list-group-item'>
                                                     Totale: <span id='rit_totale'>${ritiro.Totale_D}</span>
                                                 </li>
                                                 <li class='list-group-item'>
                                                     <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
-                                                        <button type="button" class="btn btn-success">Accetto</button>
-                                                        <button type="button" class="btn btn-danger">Rifiuto</button>
+                                                        <button type="button" data-tipo="${datatipo}" data-idritiro="${idritiro}" class="btn btn-success">Accetto</button>
+                                                        <button type="button" data-tipo="${datatipo}" data-idritiro="${idritiro}" class="btn btn-danger">Rifiuto</button>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -112,50 +135,50 @@ function onDeviceReady() {
                                 });
                             }
                         );
-                        $.getJSON("https://ristostore.it/RPA/ordini_driver", 
-                            {"Id_User":risposta.dati.Id,"In_Corso":"Si"},
-                            function (data, textStatus, jqXHR) {
-                                $.each( data, function( key, ordine ) {
-                                    let DT_engform = new Date(ordine.DT_Consegna);
-                                    let DT_date = DT_engform.toLocaleDateString("it-It");
-                                    let ora = DT_engform.getHours();
-                                    let minuti = DT_engform.getMinutes();
-                                    var linkattitel="";
-                                    if(esi(ordine.Attitel)!=""){
-                                        linkattitel=`<a class='btn btn-sm btn-primary ml-3' href='tel:${ordine.Telefono}'>Chiama</a>`;
-                                    }
-                                    var linktelefono="";
-                                    if(esi(ordine.Clientitel)!=""){
-                                        linktelefono=`<li class='list-group-item'>
-                                            <a class='btn btn-sm btn-primary w-100' href='tel:${ordine.Clientitel}'>Chiama il cliente</a>
-                                        </li>`;
-                                    }
-                                    let card=`
-                                        <div class='card text-dark bg-light mb-3 w-100'>
-                                            <div class='card-header'>
-                                                ordine <span id='progressivo_ordine'></span> presso <strong id='rit_rsa'>${ordine.Ragione_Sociale}</strong> ${linkattitel}
-                                            </div>
-                                            <ul class='list-group list-group-flush'>
-                                                <li class='list-group-item'>
-                                                    Consegna: <strong>${ora}:${minuti}</strong> del <span id='rit_dt_consegna'>${DT_date}</span>
-                                                </li>
-                                                ${linktelefono}
-                                                <li class='list-group-item'>
-                                                    Totale: <span id='rit_totale'>${ordine.Totale}</span>
-                                                </li>
-                                                <li class='list-group-item'>
-                                                    <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
-                                                        <button type="button" class="btn btn-success">Accetto</button>
-                                                        <button type="button" class="btn btn-danger">Rifiuto</button>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    `;
-                                    $("#ord_lav").append(card);
-                                });
-                            }
-                        );
+                        // $.getJSON("https://ristostore.it/RPA/ordini_driver", 
+                        //     {"Id_User":risposta.dati.Id,"In_Corso":"Si"},
+                        //     function (data, textStatus, jqXHR) {
+                        //         $.each( data, function( key, ordine ) {
+                        //             let DT_engform = new Date(ordine.DT_Consegna);
+                        //             let DT_date = DT_engform.toLocaleDateString("it-It");
+                        //             let ora = DT_engform.getHours();
+                        //             let minuti = DT_engform.getMinutes();
+                        //             var linkattitel="";
+                        //             if(esi(ordine.Attitel)!=""){
+                        //                 linkattitel=`<a class='btn btn-sm btn-primary ml-3' href='tel:${ordine.Telefono}'>Chiama</a>`;
+                        //             }
+                        //             var linktelefono="";
+                        //             if(esi(ordine.Clientitel)!=""){
+                        //                 linktelefono=`<li class='list-group-item'>
+                        //                     <a class='btn btn-sm btn-primary w-100' href='tel:${ordine.Clientitel}'>Chiama il cliente</a>
+                        //                 </li>`;
+                        //             }
+                        //             let card=`
+                        //                 <div class='card text-dark bg-light mb-3 w-100'>
+                        //                     <div class='card-header'>
+                        //                         ordine <span id='progressivo_ordine'></span> presso <strong id='rit_rsa'>${ordine.Ragione_Sociale}</strong> ${linkattitel}
+                        //                     </div>
+                        //                     <ul class='list-group list-group-flush'>
+                        //                         <li class='list-group-item'>
+                        //                             Consegna: <strong>${ora}:${minuti}</strong> del <span id='rit_dt_consegna'>${DT_date}</span>
+                        //                         </li>
+                        //                         ${linktelefono}
+                        //                         <li class='list-group-item'>
+                        //                             Totale: <span id='rit_totale'>${ordine.Totale}</span>
+                        //                         </li>
+                        //                         <li class='list-group-item'>
+                        //                             <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                        //                                 <button type="button" class="btn btn-success">Accetto</button>
+                        //                                 <button type="button" class="btn btn-danger">Rifiuto</button>
+                        //                             </div>
+                        //                         </li>
+                        //                     </ul>
+                        //                 </div>
+                        //             `;
+                        //             $("#ord_lav").append(card);
+                        //         });
+                        //     }
+                        // );
                         // $('#tabella_ordini').DataTable({
                         //     ajax:"https://ristostore.it/RPA/ordini_driver?Id="+risposta.dati.Id,
                         //     "columns": [
