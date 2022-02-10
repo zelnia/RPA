@@ -78,6 +78,7 @@ function onDeviceReady() {
                                     let minuti = DT_engform.getMinutes();
                                     var linkattitel="";
                                     var idritiro=ritiro.Id;
+                                    var ido=ritiro.Id;
                                     if(esi(ritiro.Attitel)!=""){
                                         linkattitel=`<a class='btn btn-sm btn-primary ml-3' href='tel:${ritiro.Telefono}'>Chiama</a>`;
                                     }
@@ -89,9 +90,36 @@ function onDeviceReady() {
                                     }
                                     var datatipo="ritiro";
                                     var settoreordine="";
+                                    var azioni="";
+                                    //AZIONI RITIRO
+                                    if(esi(ritiro.Ordine_Associato)=="0"){
+                                        if(esi(ritiro.Stato)==0){
+                                            azioni=`<li class='list-group-item' id="liazioni">
+                                                <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="accetto" class="tastoprocesso btn btn-success">Accetto</button>
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
+                                                </div>
+                                            </li>`;
+                                        }
+                                        if(esi(ritiro.Stato)==1){
+                                            azioni=`<li class='list-group-item' id="liazioni">
+                                                <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="partenza" class="tastoprocesso btn btn-success">Partenza</button>
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
+                                                </div>
+                                            </li>`;
+                                        }
+                                        if(esi(ritiro.Stato)==3){
+                                            azioni=`<li class='list-group-item' id="liazioni">
+                                                <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
+                                                </div>
+                                            </li>`;
+                                        }
+                                    }
                                     if(esi(ritiro.Ordine_Associato)!="0"){
                                         var datatipo="ordine";
-                                        var idritiro=ritiro.Ordine_Associato;
+                                        ido=ritiro.Ordine_Associato;
                                         settoreordine=`<li class='list-group-item'>
                                             Cliente: ${ritiro.Nominativo}
                                         </li>
@@ -107,9 +135,30 @@ function onDeviceReady() {
                                         //         </li>`;
                                         //     });
                                         // }
+
+                                        
+                                        //AZIONI ORDINE
+                                        if(esi(ritiro.Ostato)==1){
+                                            azioni=`<li class='list-group-item' id="liazioni">
+                                                <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="accetto" class="tastoprocesso btn btn-success">Accetto</button>
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="cancello" class="tastoprocesso btn btn-danger">Cancello</button>
+                                                </div>
+                                            </li>`;
+                                        }
+                                        if(esi(ritiro.Ostato)==3){
+                                            azioni=`<li class='list-group-item' id="liazioni">
+                                                <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
+                                                    <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="cancello" class="tastoprocesso btn btn-danger">Cancello</button>
+                                                </div>
+                                            </li>`;
+                                        }
                                     }
                                     let card=`
-                                        <div class='card text-dark bg-light mb-3 w-100'>
+                                        <div class='card text-dark bg-light mb-3 w-100' id='card${idritiro}'>
                                             <div class='card-header'>
                                                 Ritiro <span id='progressivo_ritiro'></span> presso <strong id='rit_rsa'>${ritiro.Ragione_Sociale}</strong> ${linkattitel}
                                             </div>
@@ -122,12 +171,7 @@ function onDeviceReady() {
                                                 <li class='list-group-item'>
                                                     Totale: <span id='rit_totale'>${ritiro.Totale_D}</span>
                                                 </li>
-                                                <li class='list-group-item'>
-                                                    <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
-                                                        <button type="button" data-tipo="${datatipo}" data-idritiro="${idritiro}" class="btn btn-success">Accetto</button>
-                                                        <button type="button" data-tipo="${datatipo}" data-idritiro="${idritiro}" class="btn btn-danger">Rifiuto</button>
-                                                    </div>
-                                                </li>
+                                                ${azioni}
                                             </ul>
                                         </div>
                                     `;
@@ -256,6 +300,58 @@ function onDeviceReady() {
                 vai("settoreritiro");
             }
         );
+    });
+
+    $(document).on("click", ".tastoprocesso", function(event) {
+        var Id_User=localStorage.getItem('Id_User');
+        let tipo=$(this).data("tipo");
+        let ido=$(this).data("ido");
+        let idritiro=$(this).data("idritiro");
+        let processo=$(this).data("processo");
+        let dati_gestione_ro = {
+            "Id_User":Id_User,
+            "tipo":tipo,
+            "ido":ido,
+            "idritiro":idritiro,
+            "processo":processo,
+        }
+        $.ajax({
+            type: "POST",
+            url: "https://ristostore.it/RPA/gestione_ro",
+            data: dati_gestione_ro,
+            success: function (response) {
+                if(response="roaggiornati"){
+                    if(tipo=="ritiro"){
+                        switch (processo) {
+                            case "accetto":
+                                $("#liazioni").html(`
+                                    <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                        <button type="button" data-tipo="${tipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="partenza" class="tastoprocesso btn btn-success">Partenza</button>
+                                        <button type="button" data-tipo="${tipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
+                                    </div>
+                                `);
+                                break;
+                            case "partenza":
+                                $("#liazioni").html(`
+                                    <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
+                                    </div>
+                                `);
+                            case "rifiuto":
+                                $("#card"+idritiro).remove();
+                                break;
+                            case "consegnato":
+                                $("#card"+idritiro).remove();
+                                break;
+                        }
+                    }
+                    if(tipo=="ordine"){
+
+                    }
+                }
+            }
+        });
+
     });
 }
 //console.log(`On easter we decorted ${eggCount}` easter eggs);
