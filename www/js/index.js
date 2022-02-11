@@ -346,7 +346,25 @@ function onDeviceReady() {
                         }
                     }
                     if(tipo=="ordine"){
-
+                        switch (processo) {
+                            case "accetto":
+                                $("#liazioni").html(`
+                                    <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
+                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
+                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
+                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="cancello" class="tastoprocesso btn btn-danger">Cancello</button>
+                                    </div>
+                                `);
+                                break;
+                            case "cancello":
+                                $("#card"+idritiro).remove();
+                            case "rifiuto":
+                                $("#card"+idritiro).remove();
+                                break;
+                            case "consegnato":
+                                $("#card"+idritiro).remove();
+                                break;
+                        }
                     }
                 }
             }
