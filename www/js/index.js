@@ -76,11 +76,13 @@ function onDeviceReady() {
                                     let DT_date = DT_engform.toLocaleDateString("it-It");
                                     let ora = DT_engform.getHours();
                                     let minuti = DT_engform.getMinutes();
-                                    var linkattitel="";
                                     var idritiro=ritiro.Id;
                                     var ido=ritiro.Id;
+                                    var linkattitel="";
                                     if(esi(ritiro.Attitel)!=""){
-                                        linkattitel=`<a class='btn btn-sm btn-primary ml-3' href='tel:${ritiro.Telefono}'>Chiama</a>`;
+                                        linkattitel=`<li class='list-group-item'>
+                                            <a class='btn btn-sm btn-info w-100' href='tel:${ritiro.Attitel}'>Chiama l'attività</a>
+                                        </li>`;
                                     }
                                     var linktelefono="";
                                     if(esi(ritiro.Telefono)!=""){
@@ -120,12 +122,17 @@ function onDeviceReady() {
                                     if(esi(ritiro.Ordine_Associato)!="0"){
                                         var datatipo="ordine";
                                         ido=ritiro.Ordine_Associato;
-                                        settoreordine=`<li class='list-group-item'>
-                                            Cliente: ${ritiro.Nominativo}
-                                        </li>
-                                        <li class='list-group-item'>
-                                            Indirizzo: ${ritiro.Indirizzo}
-                                        </li>`;
+                                        settoreordine="";
+                                        if(esi(ritiro.Nominativo)){
+                                            settoreordine+=`<li class='list-group-item'>
+                                                Cliente: ${ritiro.Nominativo}
+                                            </li>`;
+                                        }
+                                        if(esi(ritiro.Indirizzo)){
+                                            settoreordine+=`<li class='list-group-item'>
+                                                Indirizzo: ${ritiro.Indirizzo}
+                                            </li>`;
+                                        }
                                         // var prodottiordine=JSON.parse(ritiro.Prodotti);
                                         // var prodotti="";
                                         // if(Array.isArray(prodottiordine) && prodottiordine.length){
@@ -157,10 +164,16 @@ function onDeviceReady() {
                                             </li>`;
                                         }
                                     }
+                                    var totale="";
+                                    if(esi(ritiro.Totale_D)){
+                                        totale=`<li class='list-group-item'>
+                                            Totale: <span id='rit_totale'>${ritiro.Totale_D}</span>
+                                        </li>`;
+                                    }
                                     let card=`
                                         <div class='card text-dark bg-light mb-3 w-100' id='card${idritiro}'>
                                             <div class='card-header'>
-                                                Ritiro <span id='progressivo_ritiro'></span> presso <strong id='rit_rsa'>${ritiro.Ragione_Sociale}</strong> ${linkattitel}
+                                                Ritiro n.${idritiro} <span id='progressivo_ritiro'></span> presso <strong id='rit_rsa'>${ritiro.Ragione_Sociale}</strong>
                                             </div>
                                             <ul class='list-group list-group-flush'>
                                                 <li class='list-group-item'>
@@ -168,9 +181,8 @@ function onDeviceReady() {
                                                 </li>
                                                 ${settoreordine}
                                                 ${linktelefono}
-                                                <li class='list-group-item'>
-                                                    Totale: <span id='rit_totale'>${ritiro.Totale_D}</span>
-                                                </li>
+                                                ${linkattitel}
+                                                ${totale}
                                                 ${azioni}
                                             </ul>
                                         </div>
