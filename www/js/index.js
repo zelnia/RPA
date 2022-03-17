@@ -55,6 +55,15 @@ function onDeviceReady() {
         vai("settorestorico");
     });
 
+    window.pushNotification.registration((token) => {
+        $("#debug1").text(token);
+    })
+    
+    // Catch notification if app launched after user touched on message
+    window.pushNotification.tapped((payload) => {
+        $("#debug2").text(token);
+    })
+
     function accesso(pUser,pPass,pTipo) {
         $.ajax({
             type: "POST",

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.rpa" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ristostore.rpa" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<!-- <widget id="io.cordova.rpa" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0"> -->
     <!-- <allow-navigation href="*"/>
     <allow-intent href="*" /> -->
     <name>rpa</name>
@@ -12,4 +13,8 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" /> -->
     <allow-navigation href="https://ristostore.it/*" />
+    <platform name="android">
+        <preference name="AndroidXEnabled" value="true" />
+    </platform>
+    <!-- <resource-file src="res/google-services.json" target="app/google-services.json" /> -->
 </widget>

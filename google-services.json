@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "117412738660",
+    "project_id": "ristostore-3b277",
+    "storage_bucket": "ristostore-3b277.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117412738660:android:b8fdacd9d7a7b2d75c5171",
+        "android_client_info": {
+          "package_name": "com.ristostore.rpa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117412738660-u6q4sr63kp600svgkie2p08iui9fr1qh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYeYh_dqOfI8cHjBwS-CNBg4ThAiDwkNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117412738660-u6q4sr63kp600svgkie2p08iui9fr1qh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
