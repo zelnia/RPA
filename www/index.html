@@ -42,7 +42,7 @@
         <title>Ristostore</title>
     </head>
     <body>
-        <div id="deviceready">
+        < id="deviceready">
             <!-- LOGIN -->
             <div class="container settore" id="settorelogin">
                 <h1>Ristostore</h1>
@@ -157,15 +157,17 @@
             </div>
             <!-- NAVBAR  -->
             <nav class="navbar fixed-bottom navbar-light bg-light px-2">
-                <button type="button" class="btn btn-leggero">
-                    <i class="bi bi-house"></i>
-                </button>
-                <button type="button" class="btn btn-leggero" id="vaistorico">
-                    Tutto
-                </button>
-                <button type="button" class="btn btn-leggero" id="indietrobutton">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
+                <div class="btn-group" role="group" aria-label="navbargroup"></div>
+                    <button type="button" class="btn btn-secondary">
+                        <i class="bi bi-house"></i>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="vaistorico">
+                        Tutto
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="indietrobutton">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                </div>
             </nav>
         </div>
         <script src="js/lib/jquery-3.6.0.min.js"></script>
