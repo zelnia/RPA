@@ -55,20 +55,40 @@ function onDeviceReady() {
         vai("settorestorico");
     });
 
+    // window.pushNotification.registration((token) => {
+    // });
     window.pushNotification.registration((token) => {
-        $("#debug1").text(token);
-    })
+        if(token!==null && token!="" && token!=="undefined"){
+            var oritoken=localStorage.getItem('PushToken');
+            //if(token!==oritoken){
+                $.ajax({
+                    type: "POST",
+                    url: "https://ristostore.it/RPA/Accesso",
+                    data:{
+                        "Tipo":"Driver",
+                        "Id_Driver":localStorage.getItem('Id_User'),
+                        "Token":token,
+                    },
+                    success: function (response) {
+                        localStorage.setItem('PushToken', token);
+                    }
+                });
+            //}
+            $("#debug1").val(token);
+        }
+    });
     
     // Catch notification if app launched after user touched on message
     window.pushNotification.tapped((payload) => {
-        $("#debug2").text(token);
-    })
+        $("#debug2").val(token);
+    });
 
     function accesso(pUser,pPass,pTipo) {
+        var dataccesso={"Tipo":pTipo,"User" : pUser,"Pass" : pPass};
         $.ajax({
             type: "POST",
             url: "https://ristostore.it/RPA/Accesso",
-            data: {"Tipo":pTipo,"User" : pUser,"Pass" : pPass},
+            data: dataccesso,
             success: function (response) {
                 if(response!="Nessun_Tipo_Specificato"){
                     var risposta=JSON.parse(response);
