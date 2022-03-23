@@ -74,14 +74,14 @@ function onDeviceReady() {
                     }
                 });
             //}
-            $("#debug1").val(token);
+            // $("#debug1").val(token);
         }
     });
     
     // Catch notification if app launched after user touched on message
-    window.pushNotification.tapped((payload) => {
-        $("#debug2").val(token);
-    });
+    // window.pushNotification.tapped((payload) => {
+    //     $("#debug2").val(token);
+    // });
 
     function accesso(pUser,pPass,pTipo) {
         var dataccesso={"Tipo":pTipo,"User" : pUser,"Pass" : pPass};
