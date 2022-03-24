@@ -65,6 +65,12 @@
                                             <input type="password" class="form-control" id="Pass">
                                         </li>
                                         <li class="list-group-item">
+                                            <select name="tipoutenza" id="tipoutenza" class="form-control">
+                                                <option value="Gestore">Gestore</option>
+                                                <option value="Driver">Rider</option>
+                                            </select>
+                                        </li>
+                                        <li class="list-group-item">
                                             <button class="btn btn-primary w-100" type="button" id="Accedi">Accedi</button>
                                         </li>
                                     </ul>
@@ -74,8 +80,8 @@
                     </div>
                 </div>
             </div>
-            <!-- HOME -->
-            <div class="container settore d-none" id="settorehome">
+            <!-- HOME Driver -->
+            <div class="container settore d-none" id="settorehomedriver">
                 <div class="container">
                     <div class="row">
                         <div class="col text-center">
@@ -84,13 +90,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <p>Debug1</p>
-                <input type="text" id="debug1">
-                <hr>
-                <p>Debug2</p>
-                <input type="text" id="debug2"> -->
-
-                </div>
                 <div class="container" id="rit_lav">
 
                 </div>
@@ -98,7 +97,38 @@
                 <div class="container mb-5"  id="ord_lav">
 
                 </div> -->
-                <div style="min-height: 50px;"></div>
+                <div class="mih50"></div>
+            </div>
+            <!-- HOME Gestori -->
+            <div class="container settore d-none" id="settorehomegestore">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <img src="img/logo_ristostore.png" class="card-img-top my-3 mw150" alt="Logo Ristostore">
+                        </div>
+                    </div>
+                </div>
+                <div class="container" id="bodyhomegestore">
+
+                </div>
+                <div class="mih50"></div>
+            </div>
+            <!-- CENTROCONTROLLO Gestori -->
+            <div class="container settore d-none" id="settorecentrocontrollo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <img src="img/logo_ristostore.png" class="card-img-top my-3 mw150" alt="Logo Ristostore">
+                        </div>
+                    </div>
+                </div>
+                <div class="container px-0" id="bodyorari">
+
+                </div>
+                <div class="container" id="bodycentrocontrollo">
+
+                </div>
+                <div class="mih50"></div>
             </div>
             <!-- STORICO -->
             <div class="container settore d-none" id="settorestorico">
@@ -170,6 +200,9 @@
                     </button>
                     <button type="button" class="btn btn-secondary" id="vaistorico">
                         Tutto
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="logout">
+                        Logout
                     </button>
                     <button type="button" class="btn btn-secondary" id="indietrobutton">
                         <i class="bi bi-chevron-left"></i>

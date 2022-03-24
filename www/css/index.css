@@ -75,6 +75,10 @@ body {
   max-width: 50px;
 }
 
+.mih50 {
+  min-height: 50px;
+}
+
 .event {
   border-radius: 4px;
   color: #FFFFFF;
