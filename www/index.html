@@ -122,8 +122,63 @@
                         </div>
                     </div>
                 </div>
-                <div class="container px-0" id="bodyorari">
+                <div class="container px-0">
+                    <div class='container px-0'>
+                        <button class="btn btn-primary btn-block w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collpasedettagliritiro" aria-expanded="false" aria-controls="collpasedettagliritiro">
+                            Dettagli ritiro
+                        </button>
+                        <div class="collapse" id="collpasedettagliritiro">
+                            <div class="card card-body">
+                                <div class="row mb-1 px-1">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="premtot_pre"><strong>Tot:</strong></span>
+                                                </div>
+                                                <input type="number" step="0.01" id="mtot_pre" class="form-control"  aria-describedby="premtot_pre">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-1 px-1">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col text-center">
+                                                Cell Cliente:
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="tel" class="form-control" placeholder="Inserisci il numero" aria-label="Telefono" aria-describedby="pretel" id="telritiro">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-3">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col px-1">			
+                                                    <button class="btn btn-block nhsecondary w-100 toggleld" type="button"  data-toggle="tooltip" data-placement="bottom" title="Segnala Lunga distanza">Lunga Distanza</button>
+                                            </div>
+                                            <div class="col px-1">
+                                                    <button class="btn btn-block nhsecondary w-100 togglexl" type="button"  data-toggle="tooltip" data-placement="bottom" title="Attiva o disattiva EXTRALARGE">XL</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-none">
+						<input type="hidden" name="mdatari" id="mdatari" value="no">
+						<input type="hidden" name="mc_c" id="mc_c">
+						<input type="hidden" name="mxl" id="mxl" value="0">
+						<input type="hidden" name="mld" id="mld" value="0">
+                    </div>
+                    <div class='container px-0' id="bodyorari">
 
+                    </div>
                 </div>
                 <div class="container" id="bodycentrocontrollo">
 

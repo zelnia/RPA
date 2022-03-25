@@ -237,11 +237,11 @@ function onDeviceReady() {
         var htmlore2="";
         if(qora==0){
           htmlore2+="<div class='col-3 p-1'>";
-          htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn-lg p-2 tastora' data-oras='"+indexora+"'>"+indexora+"</button>";
+          htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn p-1 tastora w-100' data-oras='"+indexora+"'>"+indexora+"</button>";
           htmlore2+="</div>";     
         } else {
           htmlore2+="<div class='col-3 p-1'>";
-          htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn-lg p-2 tastora' data-oras='"+indexora+"'>"+indexora+"<span class='ml-1'>("+qora+")</span></button>";
+          htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn p-2 tastora w-100' data-oras='"+indexora+"'>"+indexora+"<span class='ml-1'>("+qora+")</span></button>";
           htmlore2+="</div>";     
         }
         return htmlore2;
@@ -562,6 +562,29 @@ function onDeviceReady() {
             }
         });
 
+    });
+
+    $(".togglexl").on("click", function (e) {
+        e.preventDefault();
+        var mxl=$("#mxl").val();
+        if(mxl==0){
+          $("#mxl").val("1");
+          $(this).addClass("btn-primary").removeClass("nhsecondary");
+        } else {
+          $("#mxl").val("0");
+          $(this).addClass("nhsecondary").removeClass("btn-primary");
+        }
+    });
+    $(".toggleld").on("click", function (e) {
+        e.preventDefault();
+        var mld=$("#mld").val();
+        if(mld==0){
+          $("#mld").val("1");
+          $(this).addClass("btn-primary").removeClass("nhsecondary");
+        } else {
+          $("#mld").val("0");
+          $(this).addClass("nhsecondary").removeClass("btn-primary");
+        }
     });
 }
 //console.log(`On easter we decorted ${eggCount}` easter eggs);
