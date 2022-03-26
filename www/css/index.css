@@ -67,6 +67,10 @@ body {
   max-width: 150px;
 }
 
+.mw250 {
+  max-width: 250px;
+}
+
 .mw100 {
   max-width: 100px;
 }
