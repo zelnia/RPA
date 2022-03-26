@@ -35,6 +35,9 @@ function onDeviceReady() {
     const StoredUser = localStorage.getItem('User');
     const StoredPass = localStorage.getItem('Pass');
     const StoredTipoUtenza = localStorage.getItem('TipoUtenza');
+    console.log(StoredTipoUtenza);
+    console.log(StoredUser);
+    console.log(StoredPass);
     if(localStorage.getItem('TipoUtenza')) {
         accesso(StoredUser,StoredPass,StoredTipoUtenza);
     }
@@ -114,9 +117,11 @@ function onDeviceReady() {
                 if(response!="Nessun_Tipo_Specificato"){
                     var risposta=JSON.parse(response);
                     if(risposta.ok){
-                        localStorage.setItem('TipoUtenza', dataccesso.pTipo);
-                        localStorage.setItem('User', dataccesso.pUser);
-                        localStorage.setItem('Pass', dataccesso.pPass);
+                        console.log("accessogestore");
+                        console.log(dataccesso);
+                        localStorage.setItem('TipoUtenza', dataccesso.Tipo);
+                        localStorage.setItem('User', dataccesso.User);
+                        localStorage.setItem('Pass', dataccesso.Pass);
                         localStorage.setItem('Id_User', risposta.dati.Id);
                         getEserciziGestore(risposta.dati.Id,"GetAttivita");
                         vai("settorehomegestore");
@@ -138,9 +143,9 @@ function onDeviceReady() {
                 if(response!="Nessun_Tipo_Specificato"){
                     var risposta=JSON.parse(response);
                     if(risposta.ok){
-                        localStorage.setItem('TipoUtenza', dataccesso.pTipo);
-                        localStorage.setItem('User', dataccesso.pUser);
-                        localStorage.setItem('Pass', dataccesso.pPass);
+                        localStorage.setItem('TipoUtenza', dataccesso.Tipo);
+                        localStorage.setItem('User', dataccesso.User);
+                        localStorage.setItem('Pass', dataccesso.Pass);
                         localStorage.setItem('Id_User', risposta.dati.Id);
                         getRitiriDriver(risposta.dati.Id,"Si");
                         vai("settorehomedriver");
@@ -176,6 +181,22 @@ function onDeviceReady() {
                 });
             }
         );
+    }
+
+    function getRitiri(idatti){
+        $.ajax({
+            type: "GET",
+            url: "https://ristostore.it/RPA/apiGestori",
+            data: {
+                "idatti": idatti,
+                "Operazione":"GetRitiri"
+            },
+            success: function (response) {
+                if(response!=""){
+                    $("#bodyritiri").html(printRi(response));
+                }
+            }
+        });    
     }
 
     function generaore(atti){
@@ -275,8 +296,8 @@ function onDeviceReady() {
                     var settoreordine="";
                     var azioni="";
                     //AZIONI RITIRO
-                    if(esi(ritiro.Ordine_Associato)=="0"){
-                        if(esi(ritiro.Stato)==0){
+                    if(esi2(ritiro.Ordine_Associato)=="0"){
+                        if(esi2(ritiro.Stato)==0){
                             azioni=`<li class='list-group-item liazioni'>
                                 <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
                                     <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="accetto" class="tastoprocesso btn btn-success">Accetto</button>
@@ -299,8 +320,7 @@ function onDeviceReady() {
                                 </div>
                             </li>`;
                         }
-                    }
-                    if(esi(ritiro.Ordine_Associato)!="0"){
+                    } else if(esi2(ritiro.Ordine_Associato)!="0"){
                         var datatipo="ordine";
                         ido=ritiro.Ordine_Associato;
                         settoreordine="";
@@ -351,6 +371,8 @@ function onDeviceReady() {
                             Totale: <span id='rit_totale'>${ritiro.Totale_D}</span>
                         </li>`;
                     }
+                    console.log("checkazioni");
+                    console.log(azioni);
                     let card=`
                         <div class='card text-dark bg-light mb-3 w-100' id='card${idritiro}'>
                             <div class='card-header'>
@@ -463,6 +485,7 @@ function onDeviceReady() {
         let idatti=$(this).data("idatti");
         localStorage.setItem('AttivitaGestore', idatti);
         generaore(idatti);
+        getRitiri(idatti);
         vai("settocentrocontrollo");
     });
 
@@ -526,7 +549,7 @@ function onDeviceReady() {
                             case "partenza":
                                 $("#card"+idritiro).find(".liazioni").html(`
                                     <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
-                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
+                                        <button type="button" data-tipo="${tipo}" data-ido="${ido}" data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
                                     </div>
                                 `);
                             case "rifiuto":
@@ -542,9 +565,9 @@ function onDeviceReady() {
                             case "accetto":
                                 $("#card"+idritiro).find(".liazioni").html(`
                                     <div class="btn-group w-100" role="group" aria-label="accettorifiuto">
-                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
-                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
-                                        <button type="button" data-tipo="${datatipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="cancello" class="tastoprocesso btn btn-danger">Cancello</button>
+                                        <button type="button" data-tipo="${tipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="consegnato" class="tastoprocesso btn btn-success">Consegnato</button>
+                                        <button type="button" data-tipo="${tipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="rifiuto" class="tastoprocesso btn btn-danger">Rifiuto</button>
+                                        <button type="button" data-tipo="${tipo}" data-ido="${ido}"  data-idritiro="${idritiro}" data-processo="cancello" class="tastoprocesso btn btn-danger">Cancello</button>
                                     </div>
                                 `);
                                 break;
@@ -586,11 +609,166 @@ function onDeviceReady() {
           $(this).addClass("nhsecondary").removeClass("btn-primary");
         }
     });
+
+    // $(document).on("click", ".tastora", function(event) {
+    //     var ora=$(this).data("oras");
+    //     $("#mora").val(ora);
+    //     $("#mtot").val($("#mtot_pre").val());
+    //     $("#mnote").val("").prop('readonly', false);
+    //     $("#midri").val("");
+    //     $("#mc_c").val("Si");
+    //     $("#moddetlabel").text("Inserisci prenotazione alle: "+ora);
+    //     $("#moddetfoot2>.inviamodri").text("Invia nuova prenotazione");
+    //     $("#modorari").modal("hide");
+    //     $("#moddet input").prop('readonly', false);
+    //     if($("#checkdriver").val()=="si"){
+    //       $("#moddet").modal("show");
+    //     } else {
+    //       $(".inviamodri").click();
+    //     }
+    // });
+
+    var unclick=true;
+    $(document).on("click", ".tastora", function(event) {
+        event.preventDefault(); 
+        let idatti=localStorage.getItem('AttivitaGestore');
+        // var ora=$(this).data("oras");
+        // $("#mora").val(ora);
+        // $("#mtot").val($("#mtot_pre").val());
+        // $("#mnote").val("").prop('readonly', false);
+        // $("#midri").val("");
+        // $("#mc_c").val("Si");
+        $("#areacaricamento").find(".spinner-border").removeClass("d-none");
+        $("#areacaricamento").find("h3").text("In Lavorazione");
+        $('#ModaleLoading').modal('show');
+        if(unclick){
+            unclick= false;
+            if(idatti!==null && idatti!="" && idatti!=="undefined"){
+                // var paja="https://ristostore.it/Area_Gestori/centrocontrollo/"+idatti;
+                $(".inviamodri").removeClass("btn-success").addClass("btn-secondary");
+                var idri="";
+                var tot=$("#mtot_pre").val();
+                // var ora=$("#mora").val();
+                var ora=$(this).data("oras");
+                var note="";
+                var c_c="Si";
+                var xl=$("#mxl").val();
+                var ld=$("#mld").val();
+                var tel=$("#telritiro").val();
+                var mdatari=$("#mdatari").val();
+                var mnum=1;
+                var fdri="no";
+
+	            formdata = new FormData();
+                formdata.append("Operazione", "CreaRitiro");
+                formdata.append("idatti", idatti);
+                formdata.append("ritiro", "Si");
+                formdata.append("ora", ora);
+                formdata.append("tot", tot);
+                formdata.append("note", note);
+                formdata.append("idri", idri);
+                formdata.append("xl", xl);
+                formdata.append("ld", ld);
+                formdata.append("tel", tel);
+                formdata.append("c_c", c_c);
+                formdata.append("fdri", fdri);
+                formdata.append("mdatari", mdatari);
+                formdata.append("mnum", mnum);
+                // if($('#fotocomande')[0].files!=="undefined" && $('#fotocomande')[0].files.length!=0){var totalfiles = document.getElementById('fotocomande').files.length;
+                //   for (var index = 0; index < totalfiles; index++) {
+                //     formdata.append("fotocomande[]", document.getElementById('fotocomande').files[index]);
+                //   }
+                // }
+                $.ajax({
+                    type: "POST",
+                    url: "https://ristostore.it/RPA/apiGestori",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        //   $("#listari").html(response);
+                        // getRitiri(idatti);
+                        
+                        $("#bodyritiri").html(printRi(response));
+                        // feather.replace();
+                        //$('#ModaleLoading').modal('hide');
+                        $("#areacaricamento").find(".spinner-border").addClass("d-none");
+                        $("#areacaricamento").find("h3").text("Prenotazione inviata");
+                    }
+                }).always(
+                    function() {
+                        setTimeout(function () {  
+                          $('#ModaleLoading').hide();
+                          $('#ModaleLoading').modal("hide");
+                        }, 1500);
+                      unclick=true;
+                    }
+                );
+            }
+        }
+    });
+
+    function printRi(ritiri, nuovi=false){
+        var jrit=JSON.parse(ritiri);
+        if (jrit.length>0){
+            var htmlri="";
+            if(nuovi){
+                htmlri+='<li class="list-group-item" id="legeri"><div class="row"><div class="col"><strong>Ritiri di oggi</strong></div></div></li>';
+            }
+            jrit.forEach(r => {
+                htmlri+= "<li class='list-group-item righeri'>";
+                    htmlri+= "<div class='row'>"; 
+                        htmlri+= "<div class='col p-2'>Orario: "+r["Ora"]+"</div>";
+                        htmlri+= "<div class='col p-2'>Totale: "+r["Totale"]+"</div>"; 
+                        htmlri+= "<div class='col p-0'>"; 
+                            if(nuovi){
+                                // htmlri.= "<button type='button' class='btn btn-primary w-100 cancellariti' data-idri='{$r["Id"]}' data-tot='{$r["Totale"]}' data-ora='{$r["Ora"]}' data-note='{$r["Note"]}' data-c_c='{$r["C_C"]}' >"; 
+                                // if($r["Note"]!="" and $r["Note"]!=" "){
+                                //     htmlri.= "<span data-feather='info' class='featherfix2'></span>";  
+                                // }
+                                // htmlri.= "Cancella"; 
+                                // htmlri.= "</button>"; 
+                            } else {      
+                                htmlri+= "<div class='col p-2'>Data: "+r["Data"]+"</div>"; 
+                            }
+                        htmlri+= "</div>"; 
+                    htmlri+="</div>"; 
+                htmlri+="</li>";  
+            });
+            // foreach ($ritiri as $r) {
+            //     htmlri+= "<li class='list-group-item righeri'>";
+            //         htmlri+= "<div class='row'>"; 
+            //             htmlri+= "<div class='col p-2'>Orario: "+$r["Ora"]+"</div>";
+            //             htmlri+= "<div class='col p-2'>Totale: "+$r["Totale"]+"</div>"; 
+            //             htmlri+= "<div class='col p-0'>"; 
+            //                 if($new){
+            //                     // htmlri.= "<button type='button' class='btn btn-primary w-100 cancellariti' data-idri='{$r["Id"]}' data-tot='{$r["Totale"]}' data-ora='{$r["Ora"]}' data-note='{$r["Note"]}' data-c_c='{$r["C_C"]}' >"; 
+            //                     // if($r["Note"]!="" and $r["Note"]!=" "){
+            //                     //     htmlri.= "<span data-feather='info' class='featherfix2'></span>";  
+            //                     // }
+            //                     // htmlri.= "Cancella"; 
+            //                     // htmlri.= "</button>"; 
+            //                 } else {      
+            //                     htmlri+= "<div class='col p-2'>Data: "+$r["Data"]+"</div>"; 
+            //                 }
+            //             htmlri+= "</div>"; 
+            //         htmlri+="</div>"; 
+            //     htmlri+="</li>";
+            // }
+            return htmlri;
+        }
+    }
 }
-//console.log(`On easter we decorted ${eggCount}` easter eggs);
 function esi(v,alt=""){
     if (typeof v === 'undefined' || v=="" || v==0) {
-        console.log("MMhg "+v);
+        // console.log("MMhg "+v);
+        return alt;
+    } else {
+        return v;
+    }
+}
+function esi2(v,alt=""){
+    if (typeof v === 'undefined' || v=="") {
         return alt;
     } else {
         return v;

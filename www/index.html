@@ -45,18 +45,17 @@
         <div id="deviceready">
             <!-- LOGIN -->
             <div class="container settore" id="settorelogin">
-                <h1>Ristostore</h1>
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <div class="card mw250" id="cardaccesso">
+                            <div class="card mw250 mx-auto mt-2" id="cardaccesso">
                                 <div class="card-header">
                                   Login
                                 </div>
                                 <div class="card-body">
-                                    <img src="img/logo_ristostore.png" class="card-img-top m-3" alt="Logo Ristostore">
-                                    <h5 class="card-title">Esegui l'accesso</h5>
-                                    <p class="card-text">Inserisci nome utente e password</p>
+                                    <img src="img/logo_ristostore.png" class="card-img-top my-3" alt="Logo Ristostore">
+                                    <h5 class="card-title text-center">Esegui l'accesso</h5>
+                                    <p class="card-text text-center">Inserisci nome utente e password</p>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             <input type="text" class="form-control" placeholder="Nome Utente" id="User">
@@ -123,46 +122,51 @@
                     </div>
                 </div>
                 <div class="container px-0">
-                    <div class='container px-0'>
-                        <button class="btn btn-primary btn-block w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collpasedettagliritiro" aria-expanded="false" aria-controls="collpasedettagliritiro">
-                            Dettagli ritiro
-                        </button>
-                        <div class="collapse" id="collpasedettagliritiro">
-                            <div class="card card-body">
-                                <div class="row mb-1 px-1">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="premtot_pre"><strong>Tot:</strong></span>
+                    <div class="card">
+                        <div class="card-header">
+                          Prenotazione ritiro
+                        </div>
+                        <div class="card-body px-0">
+                            <button class="btn btn-primary btn-block w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collpasedettagliritiro" aria-expanded="false" aria-controls="collpasedettagliritiro">
+                                Dettagli ritiro
+                            </button>
+                            <div class="collapse" id="collpasedettagliritiro">
+                                <div class="card card-body">
+                                    <div class="row mb-1 px-1">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="premtot_pre"><strong>Tot:</strong></span>
+                                                    </div>
+                                                    <input type="number" step="0.01" id="mtot_pre" class="form-control"  aria-describedby="premtot_pre">
                                                 </div>
-                                                <input type="number" step="0.01" id="mtot_pre" class="form-control"  aria-describedby="premtot_pre">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-1 px-1">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col text-center">
-                                                Cell Cliente:
+                                    <div class="row mb-1 px-1">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    Cell Cliente:
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="input-group">
-                                                <input type="tel" class="form-control" placeholder="Inserisci il numero" aria-label="Telefono" aria-describedby="pretel" id="telritiro">
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <input type="tel" class="form-control" placeholder="Inserisci il numero" aria-label="Telefono" aria-describedby="pretel" id="telritiro">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mt-2 mb-3">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col px-1">			
-                                                    <button class="btn btn-block nhsecondary w-100 toggleld" type="button"  data-toggle="tooltip" data-placement="bottom" title="Segnala Lunga distanza">Lunga Distanza</button>
-                                            </div>
-                                            <div class="col px-1">
-                                                    <button class="btn btn-block nhsecondary w-100 togglexl" type="button"  data-toggle="tooltip" data-placement="bottom" title="Attiva o disattiva EXTRALARGE">XL</button>
+                                    <div class="row mt-2 mb-3">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col px-1">			
+                                                        <button class="btn btn-block nhsecondary w-100 toggleld" type="button"  data-toggle="tooltip" data-placement="bottom" title="Segnala Lunga distanza">Lunga Distanza</button>
+                                                </div>
+                                                <div class="col px-1">
+                                                        <button class="btn btn-block nhsecondary w-100 togglexl" type="button"  data-toggle="tooltip" data-placement="bottom" title="Attiva o disattiva EXTRALARGE">XL</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -180,8 +184,17 @@
 
                     </div>
                 </div>
-                <div class="container" id="bodycentrocontrollo">
+                <div class="container px-0 mt-2" id="bodycentrocontrollo">
+                    <div class="card">
+                        <div class="card-header">
+                          Ritiri prenotati
+                        </div>
+                        <ul class="list-group" id="bodyritiri">
 
+                        </ul>
+                        <!-- <div class="card-body">
+                        </div> -->
+                    </div>
                 </div>
                 <div class="mih50"></div>
             </div>
@@ -264,6 +277,23 @@
                     </button>
                 </div>
             </nav>
+        </div>
+        <div class="modal fade" id="ModaleLoading" tabindex="-1" role="dialog" aria-labelledby="ModaleLoadingTitle" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered max_w_200 m-auto" role="document">
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                      <h5 class="modal-title text-center w-100" id="ModaleLoadingTitle">In lavorazione...</h5>
+                    </div> -->
+                    <div class="modal-body">
+                        <div class="text-center" id="areacaricamento">
+                            <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                                <!-- <span class="sr-only">In Lavorazione...</span> -->
+                            </div>
+                            <h3>In  lavorazione</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="js/lib/jquery-3.6.0.min.js"></script>
         <script src="js/lib/bootstrap.bundle.min.js"></script>
