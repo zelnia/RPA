@@ -37,6 +37,7 @@ body {
   padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
   text-transform: uppercase;
   width: 100%;
+  background-color: #fff;
 }
 
 .btn-leggero {
@@ -47,8 +48,8 @@ body {
 
 .btn-leggero:hover {
   color: #fff;
-  background-color: #5c636a;
-  border-color: #565e64;
+  background-color: #4d535a;
+  border-color: #6c757d;
 }
 
 /* Landscape layout (with min-width) */

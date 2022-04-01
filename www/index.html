@@ -20,16 +20,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, please refer to the docs:
-            https://cordova.apache.org/docs/en/latest/
-        Some notes:
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://ristostore.it/ data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;connect-src 'self' https://ristostore.it/ 'unsafe-inline' 'unsafe-eval';"> -->
-        <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data:">
+        
+        <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-eval'; style-src 'self'; media-src *; img-src 'self' data:">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -42,7 +34,7 @@
         <title>Ristostore</title>
     </head>
     <body>
-        <div id="deviceready">
+        <div id="deviceready" style="background-color: #FFFFFF;">
             <!-- LOGIN -->
             <div class="container settore" id="settorelogin">
                 <div class="container">
@@ -58,12 +50,15 @@
                                     <p class="card-text text-center">Inserisci nome utente e password</p>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
+                                            <label for="User">Utente</label>
                                             <input type="text" class="form-control" placeholder="Nome Utente" id="User">
                                         </li>
                                         <li class="list-group-item">
+                                            <label for="password">Password</label>
                                             <input type="password" class="form-control" id="Pass">
                                         </li>
                                         <li class="list-group-item">
+                                            <label for="tipoutenza">Tipologia</label>
                                             <select name="tipoutenza" id="tipoutenza" class="form-control">
                                                 <option value="Gestore">Gestore</option>
                                                 <option value="Driver">Rider</option>
@@ -92,6 +87,10 @@
                 <div class="container" id="rit_lav">
 
                 </div>
+                
+                <div class="container">
+                    <a href="https://ristostore.it/Area_Drivers/accesso" class="btn btn-outline-info w-100" id="linkareadriver">Area driver.</a>
+                </div>
                 <!-- <h3>Ordini</h3>
                 <div class="container mb-5"  id="ord_lav">
 
@@ -109,6 +108,9 @@
                 </div>
                 <div class="container" id="bodyhomegestore">
 
+                </div>
+                <div class="container">
+                    <a href="https://ristostore.it/Area_Gestori/accesso" class="btn btn-outline-info w-100" id="linkareagestore">Area gestore.</a>
                 </div>
                 <div class="mih50"></div>
             </div>
@@ -199,7 +201,7 @@
                 <div class="mih50"></div>
             </div>
             <!-- STORICO -->
-            <div class="container settore d-none" id="settorestorico">
+            <!-- <div class="container settore d-none" id="settorestorico">
                 <h3>Ritiri</h3>
                 <div class="container">
                     <div class="row">
@@ -233,7 +235,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- DETTAGLI RITIRO -->
             <div class="container settore d-none" id="settoreritiro">
                 <div class="card text-dark bg-light mb-3 w-100">
@@ -263,12 +265,12 @@
             <!-- NAVBAR  -->
             <nav class="navbar fixed-bottom navbar-light bg-light px-2">
                 <div class="btn-group w-100" role="group" aria-label="navbargroup">
-                    <button type="button" class="btn btn-secondary">
+                    <!-- <button type="button" class="btn btn-secondary">
                         <i class="bi bi-house"></i>
                     </button>
                     <button type="button" class="btn btn-secondary" id="vaistorico">
                         Tutto
-                    </button>
+                    </button> -->
                     <button type="button" class="btn btn-secondary" id="logout">
                         Logout
                     </button>

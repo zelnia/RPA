@@ -60,9 +60,9 @@ function onDeviceReady() {
         vai("settorelogin");
     });
 
-    $("#vaistorico").on("click", function () {
-        vai("settorestorico");
-    });
+    // $("#vaistorico").on("click", function () {
+    //     vai("settorestorico");
+    // });
 
     // window.pushNotification.registration((token) => {
     // });
@@ -123,6 +123,9 @@ function onDeviceReady() {
                         localStorage.setItem('User', dataccesso.User);
                         localStorage.setItem('Pass', dataccesso.Pass);
                         localStorage.setItem('Id_User', risposta.dati.Id);
+                        if(typeof(risposta.dati["Authcode"])!=="undefined" && risposta.dati["Authcode"]!=="undefined" && risposta.dati.Authcode!==null){
+                            $("#linkareagestore").attr("href","https://ristostore.it/Area_Gestori/accesso?Authcode="+risposta.dati.Authcode)
+                        }
                         getEserciziGestore(risposta.dati.Id,"GetAttivita");
                         vai("settorehomegestore");
                     }
@@ -147,6 +150,9 @@ function onDeviceReady() {
                         localStorage.setItem('User', dataccesso.User);
                         localStorage.setItem('Pass', dataccesso.Pass);
                         localStorage.setItem('Id_User', risposta.dati.Id);
+                        if(typeof(risposta.dati["Authcode"])!=="undefined" && risposta.dati["Authcode"]!=="undefined" && risposta.dati.Authcode!==null){
+                            $("#linkareadriver").attr("href","https://ristostore.it/Area_Drivers/accesso?Authcode="+risposta.dati.Authcode)
+                        }
                         getRitiriDriver(risposta.dati.Id,"Si");
                         vai("settorehomedriver");
                     }
@@ -283,13 +289,13 @@ function onDeviceReady() {
                     var linkattitel="";
                     if(esi(ritiro.Attitel)!=""){
                         linkattitel=`<li class='list-group-item'>
-                            <a class='btn btn-sm btn-info w-100' href='tel:${ritiro.Attitel}'>Chiama l'attività</a>
+                            <a class='btn btn-sm btn-info w-100' href="tel:${ritiro.Attitel}"  target="_system">Chiama l'attività</a>
                         </li>`;
                     }
                     var linktelefono="";
                     if(esi(ritiro.Telefono)!=""){
                         linktelefono=`<li class='list-group-item'>
-                            <a class='btn btn-sm btn-primary w-100' href='tel:${ritiro.Telefono}'>Chiama il cliente</a>
+                            <a class='btn btn-sm btn-primary w-100' href="tel:${ritiro.Telefono}" target="_system">Chiama il cliente</a>
                         </li>`;
                     }
                     var datatipo="ritiro";
@@ -708,6 +714,30 @@ function onDeviceReady() {
         }
     });
 
+    $(document).on("click", ".cancellariti", function(e) {
+        e.preventDefault();
+        let idatti=localStorage.getItem('AttivitaGestore');
+        var idri=$(this).data("idri");
+        var ora=$(this).data("ora");
+        if (confirm("Vuoi cancellare questa richiesta?")) {
+            $.ajax({
+                type: "POST",
+                url: "https://ristostore.it/RPA/apiGestori",
+                data: {
+                    "Operazione": "CancellaRitiro",
+                    "idatti": idatti,
+                    "ritiro":"Si",
+                    "Cancella":"Si",
+                    "idri": idri,
+                    "ora":ora
+                },
+                success: function (response) {
+                    $("#bodyritiri").html(printRi(response));
+                }
+            });
+        }
+    });
+
     function printRi(ritiri, nuovi=false){
         var jrit=JSON.parse(ritiri);
         if (jrit.length>0){
@@ -729,7 +759,8 @@ function onDeviceReady() {
                                 // htmlri.= "Cancella"; 
                                 // htmlri.= "</button>"; 
                             } else {      
-                                htmlri+= "<div class='col p-2'>Data: "+r["Data"]+"</div>"; 
+                                //htmlri+= "<div class='col p-2'>Data: "+r["Data"]+"</div>"; 
+                                htmlri+= "<div class='col p-2'><button type='button' class='btn btn-danger w-100 cancellariti' data-idri='"+r["Id"]+"' data-ora='"+r["Ora"]+"'>Canc</button></div>"; 
                             }
                         htmlri+= "</div>"; 
                     htmlri+="</div>"; 
@@ -756,6 +787,8 @@ function onDeviceReady() {
             //     htmlri+="</li>";
             // }
             return htmlri;
+        } else {
+            return "";
         }
     }
 }
