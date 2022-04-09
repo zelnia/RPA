@@ -35,13 +35,25 @@ function onDeviceReady() {
     const StoredUser = localStorage.getItem('User');
     const StoredPass = localStorage.getItem('Pass');
     const StoredTipoUtenza = localStorage.getItem('TipoUtenza');
+    const Id_User=localStorage.getItem('Id_User');
+    const UltimaAttivitaGestore=localStorage.getItem('AttivitaGestore');
     console.log(StoredTipoUtenza);
     console.log(StoredUser);
     console.log(StoredPass);
     if(localStorage.getItem('TipoUtenza')) {
         accesso(StoredUser,StoredPass,StoredTipoUtenza);
     }
-
+    setTimeout(()=>{
+        if(StoredTipoUtenza=="Driver" && typeof(Id_User)!=="undefined"){
+            getRitiriDriver(Id_User,"Si");
+        }
+        if(StoredTipoUtenza=="Gestore" && typeof(UltimaAttivitaGestore)!=="undefined"){
+            getRitiri(UltimaAttivitaGestore);
+            generaore(UltimaAttivitaGestore);
+        }
+    }, 2000);
+    // $(".debug1").text("uuuuuu");
+    // $(".debug1").text(localStorage.getItem('PushToken'));
     $("#Accedi").on("click", function () {
         var User=$("#User").val();
         var Pass=$("#Pass").val();
@@ -88,9 +100,12 @@ function onDeviceReady() {
     });
     
     // Catch notification if app launched after user touched on message
-    // window.pushNotification.tapped((payload) => {
-    //     $("#debug2").val(token);
-    // });
+    window.pushNotification.tapped((payload) => {
+        var jpay=JSON.parse(payload);
+        if(jpay.tipo=="driver"){
+            getRitiriDriver(risposta.dati.Id,"Si");
+        }
+    });
 
     function accesso(pUser,pPass,pTipo) {
         var dataccesso={"Tipo":pTipo,"User" : pUser,"Pass" : pPass};
