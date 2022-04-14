@@ -43,15 +43,15 @@ function onDeviceReady() {
     if(localStorage.getItem('TipoUtenza')) {
         accesso(StoredUser,StoredPass,StoredTipoUtenza);
     }
-    setTimeout(()=>{
+    setInterval(()=>{
         if(StoredTipoUtenza=="Driver" && typeof(Id_User)!=="undefined"){
             getRitiriDriver(Id_User,"Si");
         }
         if(StoredTipoUtenza=="Gestore" && typeof(UltimaAttivitaGestore)!=="undefined"){
             getRitiri(UltimaAttivitaGestore);
-            generaore(UltimaAttivitaGestore);
-        }
-    }, 2000);
+            generaore(UltimaAttivitaGestore,false);
+         }
+    }, 30*1000);
     // $(".debug1").text("uuuuuu");
     // $(".debug1").text(localStorage.getItem('PushToken'));
     $("#Accedi").on("click", function () {
@@ -220,7 +220,7 @@ function onDeviceReady() {
         });    
     }
 
-    function generaore(atti){
+    function generaore(atti, vaisettore=true){
         $.ajax({
             type: "GET",
             url: "https://ristostore.it/RPA/apiGestori",
@@ -270,7 +270,9 @@ function onDeviceReady() {
                     htmlore+="</div>";
                 }
                 $("#bodyorari").html(htmlore);
-                vai("settorecentrocontrollo");
+                if(vaisettore){
+                    vai("settorecentrocontrollo");
+                }
             }
         });    
     }
@@ -801,6 +803,7 @@ function onDeviceReady() {
             //         htmlri+="</div>"; 
             //     htmlri+="</li>";
             // }
+            // return "GGGGGGGGGGGGGGGGGGGGGGGGG";
             return htmlri;
         } else {
             return "";
