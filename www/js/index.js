@@ -37,9 +37,28 @@ function onDeviceReady() {
     const StoredTipoUtenza = localStorage.getItem('TipoUtenza');
     const Id_User=localStorage.getItem('Id_User');
     const UltimaAttivitaGestore=localStorage.getItem('AttivitaGestore');
-    console.log(StoredTipoUtenza);
-    console.log(StoredUser);
-    console.log(StoredPass);
+    const StoredVersion=100005;
+
+    $.ajax({
+        type: "POST",
+        url: "https://ristostore.it/RPA/Accesso",
+        data: {"Tipo":"CheckVersione"},
+        success: function (response) {
+            console.log((response<StoredVersion));
+            if (response>StoredVersion){
+                $("#notizie").html("<a href='https://play.google.com/store/apps/details?id=com.ristostore.rpa&gl=IT' title='Nuova versione disponibile'  class='btn btn-info w-100'>Scarica l'aggiornamento!</a>");
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(textStatus + jqXHR.responseText);
+        }
+    });
+    
+
+    // console.log(StoredTipoUtenza);
+    // console.log(StoredUser);
+    // console.log(StoredPass);
+
     if(localStorage.getItem('TipoUtenza')) {
         accesso(StoredUser,StoredPass,StoredTipoUtenza);
     }
@@ -195,6 +214,9 @@ function onDeviceReady() {
                                 <li class='list-group-item'>
                                     <button class='btn btn-primary w-100 vaicentrocontrollo' data-idatti='${attivita.Id}'>Vai al centro di controllo</button>
                                 </li>
+                                <li class='list-group-item text-center'>
+                                    Costo ritiro: ${attivita.Costo_Ritiro} euro.
+                                </li>
                             </ul>
                         </div>
                     `;
@@ -221,12 +243,66 @@ function onDeviceReady() {
     }
 
     function generaore(atti, vaisettore=true){
+        // $.ajax({
+        //     type: "GET",
+        //     url: "https://ristostore.it/RPA/apiGestori",
+        //     data: {
+        //         "idatti": atti,
+        //         "Operazione":"GetOre"
+        //     },
+        //     success: function (response) {
+        //         let oggettoRitiri=JSON.parse(response);
+        //         var cd = new Date();
+        //         var d = new Date(cd.getTime() + 20*60000);
+        //         var h = d.getHours();
+        //         var m = d.getMinutes();
+        //         var htmlore="";
+        //         for (let index = h; index < 23; index++) {
+        //           htmlore+="<div class='row mx-0'>";
+        //             if(index>8) { 
+        //                 if(index!=h) { 
+        //                     let indexora=index+":00";
+        //                     if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
+        //                         oggettoRitiri[indexora]='0';
+        //                     }   
+        //                     htmlore+=setTasti(oggettoRitiri[indexora],indexora);      
+        //                 } else {htmlore+="<div class='col-3 p-1'></div>";}
+        //                 if(index!=h || m<=15) { 
+        //                     let indexora=index+":15";
+        //                     if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
+        //                         oggettoRitiri[indexora]='0';
+        //                     }   
+        //                     htmlore+=setTasti(oggettoRitiri[indexora],indexora);  
+        //                 } else {htmlore+="<div class='col-3 p-1'></div>";}
+        //                 if(index!=h || m<=30) { 
+        //                     let indexora=index+":30";
+        //                     if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
+        //                           oggettoRitiri[indexora]='0';
+        //                     }   
+        //                     htmlore+=setTasti(oggettoRitiri[indexora],indexora);  
+        //                 } else {htmlore+="<div class='col-3 p-1'></div>";}
+        //                 if((index!=h || m<=45) && index!=22) { 
+        //                     let indexora=index+":45";
+        //                     if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
+        //                         oggettoRitiri[indexora]='0';
+        //                     }   
+        //                     htmlore+=setTasti(oggettoRitiri[indexora],indexora);  
+        //                 } else {htmlore+="<div class='col-3 p-1'></div>";}
+        //             }
+        //             htmlore+="</div>";
+        //         }
+        //         $("#bodyorari").html(htmlore);
+        //         if(vaisettore){
+        //             vai("settorecentrocontrollo");
+        //         }
+        //     }
+        // }); 
         $.ajax({
-            type: "GET",
-            url: "https://ristostore.it/RPA/apiGestori",
+            type: "POST",
+            url: "/RPA/apiGestori",
             data: {
-                "idatti": atti,
-                "Operazione":"GetOre"
+              "idatti": atti,
+              "Operazione":"GetOre2"
             },
             success: function (response) {
                 let oggettoRitiri=JSON.parse(response);
@@ -235,61 +311,46 @@ function onDeviceReady() {
                 var h = d.getHours();
                 var m = d.getMinutes();
                 var htmlore="";
-                for (let index = h; index < 23; index++) {
-                  htmlore+="<div class='row mx-0'>";
-                    if(index>8) { 
-                        if(index!=h) { 
-                            let indexora=index+":00";
-                            if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
-                                oggettoRitiri[indexora]='0';
-                            }   
-                            htmlore+=setTasti(oggettoRitiri[indexora],indexora);      
-                        } else {htmlore+="<div class='col-3 p-1'></div>";}
-                        if(index!=h || m<=15) { 
-                            let indexora=index+":15";
-                            if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
-                                oggettoRitiri[indexora]='0';
-                            }   
-                            htmlore+=setTasti(oggettoRitiri[indexora],indexora);  
-                        } else {htmlore+="<div class='col-3 p-1'></div>";}
-                        if(index!=h || m<=30) { 
-                            let indexora=index+":30";
-                            if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
-                                  oggettoRitiri[indexora]='0';
-                            }   
-                            htmlore+=setTasti(oggettoRitiri[indexora],indexora);  
-                        } else {htmlore+="<div class='col-3 p-1'></div>";}
-                        if((index!=h || m<=45) && index!=22) { 
-                            let indexora=index+":45";
-                            if(typeof(oggettoRitiri[indexora]) == "undefined" || oggettoRitiri[indexora]==="undefined"){
-                                oggettoRitiri[indexora]='0';
-                            }   
-                            htmlore+=setTasti(oggettoRitiri[indexora],indexora);  
-                        } else {htmlore+="<div class='col-3 p-1'></div>";}
+                oggettoRitiri.forEach((element, index) => {
+                  htmlore+="<div class='row'>";
+                    if(index==0 && m>30 && element==h){
+                      htmlore+="<div class='col-6 p-1'></div>";
+                      htmlore+=setTasti2(element+":30"); 
+                    } else {
+                      htmlore+=setTasti2(element+":00"); 
+                      htmlore+=setTasti2(element+":30"); 
                     }
-                    htmlore+="</div>";
-                }
+                  htmlore+="</div>";
+                });
                 $("#bodyorari").html(htmlore);
+              
                 if(vaisettore){
                     vai("settorecentrocontrollo");
                 }
             }
-        });    
+        });     
     }
 
-    function setTasti(qora,indexora){
+    function setTasti2(ora){
         var htmlore2="";
-        if(qora==0){
-          htmlore2+="<div class='col-3 p-1'>";
-          htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn p-1 tastora w-100' data-oras='"+indexora+"'>"+indexora+"</button>";
-          htmlore2+="</div>";     
-        } else {
-          htmlore2+="<div class='col-3 p-1'>";
-          htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn p-2 tastora w-100' data-oras='"+indexora+"'>"+indexora+"<span class='ml-1'>("+qora+")</span></button>";
-          htmlore2+="</div>";     
-        }
+        htmlore2+="<div class='col-6 p-1'>";
+        htmlore2+="<button type='button' id='bo"+ora.replace(':', '_')+"' class='btn-outline-primary btn-block btn-lg p-3 tastora' data-oras='"+ora+"'>"+ora+"</button>";
+        htmlore2+="</div>";     
         return htmlore2;
     }
+    // function setTasti(qora,indexora){
+    //     var htmlore2="";
+    //     if(qora==0){
+    //       htmlore2+="<div class='col-3 p-1'>";
+    //       htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn p-1 tastora w-100' data-oras='"+indexora+"'>"+indexora+"</button>";
+    //       htmlore2+="</div>";     
+    //     } else {
+    //       htmlore2+="<div class='col-3 p-1'>";
+    //       htmlore2+="<button type='button' id='bo"+indexora.replace(':', '_')+"' class='btn-outline-primary btn-block btn p-2 tastora w-100' data-oras='"+indexora+"'>"+indexora+"<span class='ml-1'>("+qora+")</span></button>";
+    //       htmlore2+="</div>";     
+    //     }
+    //     return htmlore2;
+    // }
 
 
     function getRitiriDriver(Id_Driver,In_Corso){
