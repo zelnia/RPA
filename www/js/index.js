@@ -299,7 +299,7 @@ function onDeviceReady() {
         // }); 
         $.ajax({
             type: "POST",
-            url: "/RPA/apiGestori",
+            url: "https://ristostore.it/RPA/apiGestori",
             data: {
               "idatti": atti,
               "Operazione":"GetOre2"
@@ -334,7 +334,7 @@ function onDeviceReady() {
     function setTasti2(ora){
         var htmlore2="";
         htmlore2+="<div class='col-6 p-1'>";
-        htmlore2+="<button type='button' id='bo"+ora.replace(':', '_')+"' class='btn-outline-primary btn-block btn-lg p-3 tastora' data-oras='"+ora+"'>"+ora+"</button>";
+        htmlore2+="<button type='button' id='bo"+ora.replace(':', '_')+"' class='btn-outline-primary btn-block btn-lg p-3 tastora w-100' data-oras='"+ora+"'>"+ora+"</button>";
         htmlore2+="</div>";     
         return htmlore2;
     }
