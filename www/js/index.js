@@ -37,7 +37,7 @@ function onDeviceReady() {
     const StoredTipoUtenza = localStorage.getItem('TipoUtenza');
     const Id_User=localStorage.getItem('Id_User');
     const UltimaAttivitaGestore=localStorage.getItem('AttivitaGestore');
-    const StoredVersion=100005;
+    const StoredVersion=100010;
 
     $.ajax({
         type: "POST",
